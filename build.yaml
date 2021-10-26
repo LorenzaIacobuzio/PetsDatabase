@@ -1,0 +1,20 @@
+targets:
+  $default:
+    builders:
+      moor_generator|moor_generator_not_shared:
+        generate_for:
+          - "/lib/repositories/**.dart"
+        enabled: true
+      moor_generator|preparing_builder:
+        generate_for:
+          - "/lib/repositories/**.dart"
+        enabled: true
+
+#  run_built_value:
+#    dependencies: ["pets"]
+#    builders:
+#      # Disable moor builders. By default, those would run on each target
+#      moor_generator:
+#        enabled: false
+#      moor_generator|preparing_builder:
+#        enabled: false
