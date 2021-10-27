@@ -73,6 +73,7 @@ void main() {
          fail("Foreign key constraint exception expected");
       } catch (e) {
             expect(e.toString().contains('FOREIGN'), true);
+            expect(e, isA<SqliteException>());
       }
     });
   });

@@ -78,27 +78,18 @@ extension AnyPet on Any {
           age,
           InnerPet.dog()));
 
-  Generator<Pet> snake(OwnerId ownedBy) => combine3(
+  Generator<Pet> snake(OwnerId ownedBy) => combine4(
       any.petId,
       any.intInRange(0, 20),
       any.catNameAndGender,
-      (PetId petId, int age, Tuple2<String, Gender> nameAndGender) => Pet(
+      any.bool,
+      (PetId petId, int age, Tuple2<String, Gender> nameAndGender, bool isVenomous) => Pet(
           petId,
           ownedBy,
           nameAndGender.value2,
           nameAndGender.value1,
           age,
-          InnerPet.snake(true)));
+          InnerPet.snake(isVenomous)));
 
-  Generator<Pet> pet(OwnerId ownedBy) => combine3(
-      any.petId,
-      any.intInRange(0, 20),
-      any.catNameAndGender,
-      (PetId petId, int age, Tuple2<String, Gender> nameAndGender) => Pet(
-          petId,
-          ownedBy,
-          nameAndGender.value2,
-          nameAndGender.value1,
-          age,
-          InnerPet.cat())); /// tried to find a generic Pet.Pet to insert here so that all kinds of pets could be tested, but couldn't find the right syntax/function (also, not sure there is one. Maybe what I did was enough already)
+  Generator<Pet> pet(OwnerId ownedBy) => oneOf([cat(ownedBy), dog(ownedBy), snake(ownedBy)]);
 }
